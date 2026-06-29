@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أوامر الذكاء الاصطناعي وموارد التعلّم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14241f; --paper:#eef1ee; --card:#ffffff;
+    --accent:#15604f; --accent-soft:#e2ede8; --brass:#9a7b3f;
+    --muted:#5e6b65; --line:#e3e6e2; --line-strong:#cfd4cf; --radius:14px;
+    --ar:"IBM Plex Sans Arabic", system-ui, sans-serif;
+    --en:"IBM Plex Sans", system-ui, sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ar);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+
+  header.top{background:var(--ink);color:#f4f7f5;padding:54px 0 46px;position:relative;overflow:hidden}
+  header.top::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;
+    background:linear-gradient(90deg,var(--brass) 0%,var(--accent) 55%,transparent 100%)}
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.32em;text-transform:uppercase;color:#9fb6ad;margin-bottom:20px;direction:ltr}
+  header.top h1{font-weight:700;font-size:clamp(26px,5.4vw,40px);line-height:1.25;max-width:20ch}
+  header.top .sub{font-family:var(--en);direction:ltr;font-size:clamp(14px,2.4vw,17px);color:#bcccc5;font-weight:400;margin-top:14px}
+  header.top p.lede{margin-top:26px;max-width:60ch;color:#cdd8d3;font-size:15.5px;font-weight:300}
+  .meta-row{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;
+    font-family:var(--mono);font-size:12px;color:#88a39a;direction:ltr;border-top:1px solid rgba(255,255,255,.10);padding-top:20px}
+  .meta-row b{color:#cfe0da;font-weight:500}
+
+  main{padding:42px 0 70px}
+  .grouplabel{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--brass);
+    margin:36px 0 14px;display:flex;align-items:center;gap:12px;direction:ltr}
+  .grouplabel::after{content:"";flex:1;height:1px;background:var(--line-strong)}
+  .grouplabel:first-child{margin-top:0}
+  .groupnote{font-size:13.5px;color:var(--muted);margin:-6px 0 16px;max-width:64ch}
+
+  .item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:14px;
+    display:grid;grid-template-columns:auto 1fr;gap:4px 18px;position:relative;
+    transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease}
+  .item:hover{border-color:var(--line-strong);box-shadow:0 6px 22px -14px rgba(20,36,31,.4);transform:translateY(-1px)}
+  .ref{grid-row:1 / span 3;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--brass);direction:ltr;letter-spacing:.04em;
+    border-inline-end:1px solid var(--line);padding-inline-end:18px;align-self:start;white-space:nowrap;padding-top:3px}
+  .titles{min-width:0}
+  .t-ar{font-weight:600;font-size:18px;line-height:1.4;color:var(--ink)}
+  .t-en{font-family:var(--en);direction:ltr;font-size:13.5px;color:var(--muted);margin-top:3px;font-weight:400}
+  .issuer{margin-top:10px;display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--accent);
+    background:var(--accent-soft);padding:3px 11px;border-radius:100px;font-weight:500}
+  .issuer .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+  .links{grid-column:2;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  a.lnk{text-decoration:none;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--ink);
+    border:1px solid var(--line-strong);border-radius:8px;padding:6px 13px;display:inline-flex;align-items:center;gap:7px;direction:ltr;
+    transition:background .15s ease,color .15s ease,border-color .15s ease}
+  a.lnk:hover,a.lnk:focus-visible{background:var(--accent);color:#fff;border-color:var(--accent)}
+  a.lnk svg{width:12px;height:12px;flex:none}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  footer{border-top:1px solid var(--line-strong);padding:26px 0 50px;color:var(--muted);font-size:12.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center}
+  footer .note{max-width:60ch;line-height:1.7}
+  footer .mono{font-family:var(--mono);font-size:11px;color:var(--brass);direction:ltr}
+
+  @media (max-width:560px){
+    .item{grid-template-columns:1fr;gap:2px}
+    .ref{grid-row:auto;border-inline-end:none;border-bottom:1px solid var(--line);padding-inline-end:0;padding-bottom:8px;margin-bottom:8px}
+    .links{grid-column:1}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">AI Tools for the Workplace · Resources</div>
+    <h1>أوامر الذكاء الاصطناعي وموارد التعلّم</h1>
+    <div class="sub">AI Prompt Libraries &amp; Learning Resources</div>
+    <p class="lede">موارد عربية بالكامل لتعلّم كتابة الأوامر، إضافةً إلى مكتبات الأوامر والدورات من مطوّري الأدوات. ابدأ بالقسم العربي أو بالأداة التي تستخدمها في عملك.</p>
+    <div class="meta-row">
+      <span><b>4</b> بالعربية</span>
+      <span><b>8</b> English</span>
+      <span>Updated <b>29 Jun 2026</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ============ ARABIC ============ -->
+    <div class="grouplabel">In Arabic · بالعربية</div>
+    <p class="groupnote">موارد عربية بالكامل. والأدوات الإنجليزية أدناه تعمل أيضاً بالعربية — يمكنك كتابة الأوامر باللغة العربية ومخاطبتها بها.</p>
+
+    <!-- AR·01 -->
+    <article class="item">
+      <div class="ref">AR&middot;01</div>
+      <div class="titles">
+        <div class="t-ar">مليون خبير لأوامر الذكاء الاصطناعي</div>
+        <div class="t-en">One Million Prompters — free Arabic prompt-engineering course + certificate (4 modules)</div>
+        <span class="issuer"><span class="dot"></span>مركز دبي للذكاء الاصطناعي · Dubai Future</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://dub.ai/ar/omp-ar" target="_blank" rel="noopener"><span style="font-family:var(--ar);font-weight:600">عربي</span></a>
+        <a class="lnk" href="https://dub.ai/en/omp" target="_blank" rel="noopener">EN</a>
+      </div>
+    </article>
+
+    <!-- AR·02 -->
+    <article class="item">
+      <div class="ref">AR&middot;02</div>
+      <div class="titles">
+        <div class="t-ar">دليل الذكاء الاصطناعي التوليدي — 100 تطبيق عملي</div>
+        <div class="t-en">Generative AI Guide — 100 use cases with ready Arabic prompts — UAE AI Office</div>
+        <span class="issuer"><span class="dot"></span>مكتب الذكاء الاصطناعي · UAE AI Office</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://ai.gov.ae/wp-content/uploads/2023/04/406.-Generative-AI-Guide_ver1-AR.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span style="font-family:var(--ar);font-weight:600">PDF عربي</span></a>
+      </div>
+    </article>
+
+    <!-- AR·03 -->
+    <article class="item">
+      <div class="ref">AR&middot;03</div>
+      <div class="titles">
+        <div class="t-ar">مقدمة إلى الذكاء الاصطناعي — منصة إدراك</div>
+        <div class="t-en">Introduction to AI — Edraak (free, fully Arabic, certificate)</div>
+        <span class="issuer"><span class="dot"></span>إدراك · Edraak</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://www.edraak.org/programs/course/arin-vt3_2018/" target="_blank" rel="noopener"><span style="font-family:var(--ar);font-weight:600">عربي</span></a>
+      </div>
+    </article>
+
+    <!-- AR·04 -->
+    <article class="item">
+      <div class="ref">AR&middot;04</div>
+      <div class="titles">
+        <div class="t-ar">الذكاء الاصطناعي — IBM SkillsBuild</div>
+        <div class="t-en">Artificial Intelligence — IBM SkillsBuild (free, Arabic, digital badge)</div>
+        <span class="issuer"><span class="dot"></span>IBM SkillsBuild</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://skillsbuild.org/ar/students/course-catalog/artificial-intelligence" target="_blank" rel="noopener"><span style="font-family:var(--ar);font-weight:600">عربي</span></a>
+      </div>
+    </article>
+
+    <!-- ============ PROMPT LIBRARIES ============ -->
+    <div class="grouplabel">Prompt Libraries (English) · مكتبات الأوامر</div>
+    <p class="groupnote">أوامر جاهزة للنسخ والتعديل. مكتبة كوبايلوت هي الأقرب لبيئة عمل مايكروسوفت 365.</p>
+
+    <!-- PR·01 -->
+    <article class="item">
+      <div class="ref">PR&middot;01</div>
+      <div class="titles">
+        <div class="t-ar">معرض أوامر مايكروسوفت كوبايلوت</div>
+        <div class="t-en">Microsoft 365 Copilot — Prompt Gallery (Word, Excel, PowerPoint, Outlook, Teams)</div>
+        <span class="issuer"><span class="dot"></span>Microsoft</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://m365.cloud.microsoft/copilot-prompts" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      </div>
+    </article>
+
+    <!-- PR·02 -->
+    <article class="item">
+      <div class="ref">PR&middot;02</div>
+      <div class="titles">
+        <div class="t-ar">دليل كتابة الأوامر 101 لـ Gemini في Google Workspace</div>
+        <div class="t-en">Google Gemini for Workspace — Prompting Guide 101 (role-based examples)</div>
+        <span class="issuer"><span class="dot"></span>Google</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://workspace.google.com/learning/content/gemini-prompt-guide" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      </div>
+    </article>
+
+    <!-- PR·03 -->
+    <article class="item">
+      <div class="ref">PR&middot;03</div>
+      <div class="titles">
+        <div class="t-ar">مكتبة أوامر Claude</div>
+        <div class="t-en">Anthropic — Claude Prompt Library (work &amp; everyday templates)</div>
+        <span class="issuer"><span class="dot"></span>Anthropic</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://docs.anthropic.com/claude/prompt-library" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      </div>
+    </article>
+
+    <!-- PR·04 -->
+    <article class="item">
+      <div class="ref">PR&middot;04</div>
+      <div class="titles">
+        <div class="t-ar">أمثلة أوامر ChatGPT</div>
+        <div class="t-en">OpenAI — ChatGPT / API Prompt Examples</div>
+        <span class="issuer"><span class="dot"></span>OpenAI</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://platform.openai.com/examples" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      </div>
+    </article>
+
+    <!-- ============ LEARN ============ -->
+    <div class="grouplabel">Learn &amp; Go Deeper (English) · للتعلّم والتعمّق</div>
+    <p class="groupnote">دورات تأسيسية مناسبة للمبتدئين، تركّز على الاستخدام العملي في العمل.</p>
+
+    <!-- LRN·01 -->
+    <article class="item">
+      <div class="ref">LRN&middot;01</div>
+      <div class="titles">
+        <div class="t-ar">أساسيات الذكاء الاصطناعي من Google</div>
+        <div class="t-en">Google AI Essentials — beginner, ~10 hrs, certificate (free trial)</div>
+        <span class="issuer"><span class="dot"></span>Google · grow.google</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://grow.google/ai-essentials/" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      </div>
+    </article>
+
+    <!-- LRN·02 -->
+    <article class="item">
+      <div class="ref">LRN&middot;02</div>
+      <div class="titles">
+        <div class="t-ar">عناصر الذكاء الاصطناعي</div>
+        <div class="t-en">Elements of AI — University of Helsinki (free, non-technical intro)</div>
+        <span class="issuer"><span class="dot"></span>University of Helsinki</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://www.elementsofai.com/" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      </div>
+    </article>
+
+    <!-- LRN·03 -->
+    <article class="item">
+      <div class="ref">LRN&middot;03</div>
+      <div class="titles">
+        <div class="t-ar">تدريب كوبايلوت والذكاء الاصطناعي على Microsoft Learn</div>
+        <div class="t-en">Microsoft Learn — Copilot &amp; AI training (free, self-paced)</div>
+        <span class="issuer"><span class="dot"></span>Microsoft Learn</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://learn.microsoft.com/training/" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      </div>
+    </article>
+
+    <!-- LRN·04 -->
+    <article class="item">
+      <div class="ref">LRN&middot;04</div>
+      <div class="titles">
+        <div class="t-ar">دورات الذكاء الاصطناعي على LinkedIn Learning</div>
+        <div class="t-en">LinkedIn Learning — AI courses (if your organization has licenses)</div>
+        <span class="issuer"><span class="dot"></span>LinkedIn</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://www.linkedin.com/learning/" target="_blank" rel="noopener">Open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="note">معظم هذه الموارد متاحة باللغة الإنجليزية. تذكّر القاعدة الذهبية: لا تُدخل بيانات شخصية أو سرية في الأدوات العامة. — Most resources are in English. Golden rule: never paste personal or confidential data into public AI tools.</div>
+    <div class="mono">AI · Prompts &amp; Learning · v1</div>
+  </div>
+</footer>
+
+</body>
+</html>

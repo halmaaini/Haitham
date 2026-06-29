@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سجل سياسات وموارد الذكاء الاصطناعي في دولة الإمارات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14241f;
+    --paper:#eef1ee;
+    --card:#ffffff;
+    --accent:#15604f;
+    --accent-soft:#e2ede8;
+    --brass:#9a7b3f;
+    --muted:#5e6b65;
+    --line:#e3e6e2;
+    --line-strong:#cfd4cf;
+    --radius:14px;
+    --ar:"IBM Plex Sans Arabic", system-ui, sans-serif;
+    --en:"IBM Plex Sans", system-ui, sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--ar);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .lat{font-family:var(--en);direction:ltr;unicode-bidi:isolate}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+
+  /* ---------- header ---------- */
+  header.top{
+    background:var(--ink);
+    color:#f4f7f5;
+    padding:54px 0 46px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.top::before{
+    content:"";position:absolute;inset:0 0 auto 0;height:4px;
+    background:linear-gradient(90deg,var(--brass) 0%,var(--accent) 55%,transparent 100%);
+  }
+  .kicker{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.32em;
+    text-transform:uppercase;color:#9fb6ad;margin-bottom:20px;
+    direction:ltr;
+  }
+  header.top h1{
+    font-weight:700;font-size:clamp(26px,5.4vw,40px);line-height:1.25;
+    max-width:18ch;
+  }
+  header.top .sub{
+    font-family:var(--en);direction:ltr;font-size:clamp(14px,2.4vw,17px);
+    color:#bcccc5;font-weight:400;margin-top:14px;letter-spacing:.01em;
+  }
+  header.top p.lede{
+    margin-top:26px;max-width:62ch;color:#cdd8d3;font-size:15.5px;font-weight:300;
+  }
+  .meta-row{
+    margin-top:30px;display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;
+    font-family:var(--mono);font-size:12px;color:#88a39a;direction:ltr;
+    border-top:1px solid rgba(255,255,255,.10);padding-top:20px;
+  }
+  .meta-row b{color:#cfe0da;font-weight:500}
+
+  /* ---------- list ---------- */
+  main{padding:42px 0 70px}
+  .grouplabel{
+    font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--brass);margin:34px 0 14px;display:flex;align-items:center;gap:12px;direction:ltr;
+  }
+  .grouplabel::after{content:"";flex:1;height:1px;background:var(--line-strong)}
+  .grouplabel:first-child{margin-top:0}
+
+  .item{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+    margin-bottom:14px;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:4px 18px;
+    position:relative;
+    transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+  }
+  .item:hover{
+    border-color:var(--line-strong);
+    box-shadow:0 6px 22px -14px rgba(20,36,31,.4);
+    transform:translateY(-1px);
+  }
+  .ref{
+    grid-row:1 / span 3;
+    font-family:var(--mono);font-size:12px;font-weight:600;color:var(--brass);
+    direction:ltr;letter-spacing:.04em;
+    border-inline-end:1px solid var(--line);
+    padding-inline-end:18px;
+    align-self:start;
+    white-space:nowrap;
+    padding-top:3px;
+  }
+  .titles{min-width:0}
+  .t-ar{font-weight:600;font-size:18px;line-height:1.4;color:var(--ink)}
+  .t-en{font-family:var(--en);direction:ltr;font-size:13.5px;color:var(--muted);margin-top:3px;font-weight:400}
+  .issuer{
+    margin-top:10px;display:inline-flex;align-items:center;gap:7px;
+    font-size:12px;color:var(--accent);background:var(--accent-soft);
+    padding:3px 11px;border-radius:100px;font-weight:500;
+  }
+  .issuer .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+  .links{grid-column:2;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  a.lnk{
+    text-decoration:none;font-family:var(--mono);font-size:12px;font-weight:500;
+    letter-spacing:.02em;color:var(--ink);
+    border:1px solid var(--line-strong);border-radius:8px;
+    padding:6px 13px;display:inline-flex;align-items:center;gap:7px;
+    transition:background .15s ease,color .15s ease,border-color .15s ease;
+    direction:ltr;
+  }
+  a.lnk:hover,a.lnk:focus-visible{background:var(--accent);color:#fff;border-color:var(--accent)}
+  a.lnk .ar{font-family:var(--ar);font-weight:600}
+  a.lnk.pdf{color:var(--brass);border-color:#e0d3b6}
+  a.lnk.pdf:hover,a.lnk.pdf:focus-visible{background:var(--brass);color:#fff;border-color:var(--brass)}
+  a.lnk svg{width:12px;height:12px;flex:none}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* nested children (u.ae hub) */
+  .children{grid-column:1 / -1;margin-top:18px;border-top:1px dashed var(--line-strong);padding-top:14px}
+  .children .ch{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:9px 4px;border-bottom:1px solid var(--line);flex-wrap:wrap;
+  }
+  .children .ch:last-child{border-bottom:none}
+  .ch-title{display:flex;align-items:baseline;gap:10px;min-width:0}
+  .ch-num{font-family:var(--mono);font-size:11px;color:var(--brass);direction:ltr;flex:none}
+  .ch-ar{font-weight:500;font-size:14.5px}
+  .ch-en{font-family:var(--en);direction:ltr;font-size:11.5px;color:var(--muted)}
+  .ch-links{display:flex;gap:7px;flex:none}
+  a.mini{
+    text-decoration:none;font-family:var(--mono);font-size:11px;font-weight:500;
+    color:var(--accent);border:1px solid var(--accent-soft);border-radius:6px;
+    padding:3px 9px;direction:ltr;transition:background .15s,color .15s;
+  }
+  a.mini.ar{font-family:var(--ar);font-weight:600}
+  a.mini:hover,a.mini:focus-visible{background:var(--accent);color:#fff}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line-strong);padding:26px 0 50px;color:var(--muted);font-size:12.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center}
+  footer .note{max-width:58ch;line-height:1.7}
+  footer .mono{font-family:var(--mono);font-size:11px;color:var(--brass);direction:ltr}
+
+  @media (max-width:560px){
+    .item{grid-template-columns:1fr;gap:2px}
+    .ref{grid-row:auto;border-inline-end:none;border-bottom:1px solid var(--line);
+      padding-inline-end:0;padding-bottom:8px;margin-bottom:8px}
+    .links{grid-column:1}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">United Arab Emirates · AI Governance</div>
+    <h1>سجل سياسات وموارد الذكاء الاصطناعي في دولة الإمارات</h1>
+    <div class="sub">Artificial Intelligence — Official Policies, Charters &amp; Resources</div>
+    <p class="lede">مجموعة من الوثائق الرسمية والسياسات والأدلة والمبادئ المنظِّمة للذكاء الاصطناعي في دولة الإمارات، مع روابط بالعربية والإنجليزية ونُسخ PDF حيثما توفّرت.</p>
+    <div class="meta-row">
+      <span><b>14</b> resources</span>
+      <span><b>Federal</b> &amp; <b>Dubai</b> sources</span>
+      <span>Updated <b>29 Jun 2026</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ============ FEDERAL ============ -->
+    <div class="grouplabel">Federal · اتحادي</div>
+
+    <!-- AE·01 -->
+    <article class="item">
+      <div class="ref">AE&middot;01</div>
+      <div class="titles">
+        <div class="t-ar">الاستراتيجية الوطنية للذكاء الاصطناعي 2031</div>
+        <div class="t-en">UAE National Strategy for Artificial Intelligence 2031</div>
+        <span class="issuer"><span class="dot"></span>حكومة الإمارات · UAE Government</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://u.ae/ar/about-the-uae/strategies-initiatives-and-awards/strategies-plans-and-visions/government-services-and-digital-transformation/uae-strategy-for-artificial-intelligence" target="_blank" rel="noopener"><span class="ar">عربي</span></a>
+        <a class="lnk" href="https://u.ae/en/about-the-uae/strategies-initiatives-and-awards/strategies-plans-and-visions/government-services-and-digital-transformation/uae-strategy-for-artificial-intelligence" target="_blank" rel="noopener">EN</a>
+        <a class="lnk pdf" href="https://ai.gov.ae/wp-content/uploads/2021/07/UAE-National-Strategy-for-Artificial-Intelligence-2031.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>PDF</a>
+      </div>
+    </article>
+
+    <!-- AE·02 -->
+    <article class="item">
+      <div class="ref">AE&middot;02</div>
+      <div class="titles">
+        <div class="t-ar">ميثاق تطوير واستخدام الذكاء الاصطناعي</div>
+        <div class="t-en">UAE Charter for the Development &amp; Use of Artificial Intelligence</div>
+        <span class="issuer"><span class="dot"></span>تشريعات الإمارات · UAE Legislation</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://uaelegislation.gov.ae/ar/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener"><span class="ar">عربي</span></a>
+        <a class="lnk" href="https://uaelegislation.gov.ae/en/policy/details/the-uae-charter-for-the-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener">EN</a>
+        <a class="lnk pdf" href="https://uaelegislation.gov.ae/ar/policy/download/the-uae-charter-for-the-development-and-use-of-artificial-intelligence" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>PDF</a>
+      </div>
+    </article>
+
+    <!-- AE·03 -->
+    <article class="item">
+      <div class="ref">AE&middot;03</div>
+      <div class="titles">
+        <div class="t-ar">موقف دولة الإمارات بشأن سياسة الذكاء الاصطناعي على المستوى الدولي</div>
+        <div class="t-en">UAE International Stance on Artificial Intelligence Policy</div>
+        <span class="issuer"><span class="dot"></span>تشريعات الإمارات · UAE Legislation</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://uaelegislation.gov.ae/ar/policy/details/uae-s-international-stance-on-artificial-intelligence-policy" target="_blank" rel="noopener"><span class="ar">عربي</span></a>
+        <a class="lnk" href="https://uaelegislation.gov.ae/en/policy/details/uae-s-international-stance-on-artificial-intelligence-policy" target="_blank" rel="noopener">EN</a>
+        <a class="lnk pdf" href="https://uaelegislation.gov.ae/ar/policy/download/uae-s-international-stance-on-artificial-intelligence-policy" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>PDF</a>
+      </div>
+    </article>
+
+    <!-- AE·04 -->
+    <article class="item">
+      <div class="ref">AE&middot;04</div>
+      <div class="titles">
+        <div class="t-ar">دليل الذكاء الاصطناعي التوليدي: 100 تطبيق واستخدام عملي</div>
+        <div class="t-en">Generative AI Guide — 100 Practical Applications &amp; Use Cases</div>
+        <span class="issuer"><span class="dot"></span>مكتب الذكاء الاصطناعي · UAE AI Office</span>
+      </div>
+      <div class="links">
+        <a class="lnk pdf" href="https://ai.gov.ae/wp-content/uploads/2023/04/406.-Generative-AI-Guide_ver1-AR.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ar">PDF عربي</span></a>
+        <a class="lnk pdf" href="https://ai.gov.ae/wp-content/uploads/2023/04/406.-Generative-AI-Guide_ver1-EN.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>PDF EN</a>
+      </div>
+    </article>
+
+    <!-- ============ DUBAI ============ -->
+    <div class="grouplabel">Dubai · دبي</div>
+
+    <!-- DXB·01 -->
+    <article class="item">
+      <div class="ref">DXB&middot;01</div>
+      <div class="titles">
+        <div class="t-ar">مبادئ دبي للذكاء الاصطناعي</div>
+        <div class="t-en">Dubai AI Principles (the four principles)</div>
+        <span class="issuer"><span class="dot"></span>دبي الرقمية · Digital Dubai</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://www.digitaldubai.ae/ar/initiatives/ai-principles" target="_blank" rel="noopener"><span class="ar">عربي</span></a>
+        <a class="lnk" href="https://www.digitaldubai.ae/initiatives/ai-principles" target="_blank" rel="noopener">EN</a>
+      </div>
+    </article>
+
+    <!-- DXB·02 -->
+    <article class="item">
+      <div class="ref">DXB&middot;02</div>
+      <div class="titles">
+        <div class="t-ar">مبادئ وأخلاقيات الذكاء الاصطناعي</div>
+        <div class="t-en">AI Principles &amp; Ethics (the Ethical AI Toolkit)</div>
+        <span class="issuer"><span class="dot"></span>دبي الرقمية · Digital Dubai</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://www.digitaldubai.ae/ar/initiatives/ai-principles-ethics" target="_blank" rel="noopener"><span class="ar">عربي</span></a>
+        <a class="lnk" href="https://www.digitaldubai.ae/initiatives/ai-principles-ethics" target="_blank" rel="noopener">EN</a>
+      </div>
+    </article>
+
+    <!-- DXB·03 -->
+    <article class="item">
+      <div class="ref">DXB&middot;03</div>
+      <div class="titles">
+        <div class="t-ar">إرشادات أخلاقيات الذكاء الاصطناعي</div>
+        <div class="t-en">AI Ethics Guidelines (fairness, accountability, transparency, explainability)</div>
+        <span class="issuer"><span class="dot"></span>دبي الرقمية · Digital Dubai</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://www.digitaldubai.ae/ar/initiatives/ai-ethics" target="_blank" rel="noopener"><span class="ar">عربي</span></a>
+        <a class="lnk" href="https://www.digitaldubai.ae/initiatives/ai-ethics" target="_blank" rel="noopener">EN</a>
+        <a class="lnk pdf" href="https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics-ar.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ar">PDF عربي</span></a>
+        <a class="lnk pdf" href="https://www.digitaldubai.ae/docs/default-source/ai-principles-resources/ai-ethics.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>PDF EN</a>
+      </div>
+    </article>
+
+    <!-- DXB·04 -->
+    <article class="item">
+      <div class="ref">DXB&middot;04</div>
+      <div class="titles">
+        <div class="t-ar">حالات تطبيقية للذكاء الاصطناعي في العمل الحكومي (15 حالة)</div>
+        <div class="t-en">15 AI Use Cases in Government — DCAI case studies</div>
+        <span class="issuer"><span class="dot"></span>مؤسسة دبي للمستقبل · Dubai Future Foundation</span>
+      </div>
+      <div class="links">
+        <a class="lnk pdf" href="https://www.dubaifuture.ae/wp-content/uploads/2025/06/DCAI-Case-Studies-AR.pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg><span class="ar">PDF عربي</span></a>
+        <a class="lnk" href="https://www.dubaifuture.ae/reports/15-ai-use-cases-in-government/" target="_blank" rel="noopener">EN report</a>
+      </div>
+    </article>
+
+    <!-- ============ GOV PORTAL HUB ============ -->
+    <div class="grouplabel">Government Portal Hub · محور حكومة الإمارات</div>
+
+    <!-- GOV·00 -->
+    <article class="item">
+      <div class="ref">GOV&middot;00</div>
+      <div class="titles">
+        <div class="t-ar">الذكاء الاصطناعي على منصة حكومة الإمارات</div>
+        <div class="t-en">Artificial Intelligence — UAE Government Portal (u.ae)</div>
+        <span class="issuer"><span class="dot"></span>حكومة الإمارات · UAE Government</span>
+      </div>
+      <div class="links">
+        <a class="lnk" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence" target="_blank" rel="noopener"><span class="ar">عربي</span></a>
+        <a class="lnk" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence" target="_blank" rel="noopener">EN</a>
+      </div>
+
+      <div class="children">
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">01</span><div><span class="ch-ar">الذكاء الاصطناعي في سياسات الحكومة</span> <span class="ch-en">AI in government policies</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/artificial-intelligence-in-government-policies" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/artificial-intelligence-in-government-policies" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">02</span><div><span class="ch-ar">توظيف الذكاء الاصطناعي في النقل والمواصلات</span> <span class="ch-en">AI in transportation</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/ai-in-transportation" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/ai-in-transportation" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">03</span><div><span class="ch-ar">مبادرة «طبّق في دبي»</span> <span class="ch-en">Create apps in Dubai</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/create-apps-in-dubai" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/create-apps-in-dubai" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">04</span><div><span class="ch-ar">تعلم الذكاء الاصطناعي</span> <span class="ch-en">Learning artificial intelligence</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/learning-artificial-intelligence" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/learning-artificial-intelligence" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">05</span><div><span class="ch-ar">الحلول الرقمية في تصميم التشريعات والسياسات المالية</span> <span class="ch-en">Rules as Code</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/rules-as-code" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/rules-as-code" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">06</span><div><span class="ch-ar">المعجم العربي للذكاء الاصطناعي</span> <span class="ch-en">The Arabic dictionary of AI</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/the-arabic-dictionary-of-artificial-intelligence" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/the-arabic-dictionary-of-artificial-intelligence" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">07</span><div><span class="ch-ar">تطبيقات الروبوت</span> <span class="ch-en">Robotics &amp; AI applications</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/robotics-and-ai-applications" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/robotics-and-ai-applications" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">08</span><div><span class="ch-ar">روبوت المحادثة (ChatGPT)</span> <span class="ch-en">ChatGPT</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/chatgpt" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/chatgpt" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+        <div class="ch">
+          <div class="ch-title"><span class="ch-num">09</span><div><span class="ch-ar">منشورات حول الذكاء الاصطناعي</span> <span class="ch-en">AI publications &amp; resources</span></div></div>
+          <div class="ch-links">
+            <a class="mini ar" href="https://u.ae/ar/about-the-uae/digital-uae/digital-technology/artificial-intelligence/ai-resources" target="_blank" rel="noopener">عربي</a>
+            <a class="mini" href="https://u.ae/en/about-the-uae/digital-uae/digital-technology/artificial-intelligence/ai-resources" target="_blank" rel="noopener">EN</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="note">جميع الروابط تشير إلى مصادر حكومية رسمية في دولة الإمارات. تُتاح النسخ الإنجليزية حيثما توفّرت. — All links point to official UAE government sources; English versions provided where available.</div>
+    <div class="mono">UAE · AI Register · v1</div>
+  </div>
+</footer>
+
+</body>
+</html>
