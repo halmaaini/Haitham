@@ -56,8 +56,9 @@
   footer .mono{font-family:var(--mono);font-size:11px;color:var(--brass);direction:ltr}
   .prepared{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
     padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--line)}
-  .prepared .pb-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);direction:ltr}
-  .prepared .pb-name{font-weight:600;font-size:14px;color:var(--ink)}
+  .prepared .pb-text{display:flex;flex-direction:column;gap:3px}
+  .prepared .pb-ar{font-weight:600;font-size:14.5px;color:var(--ink)}
+  .prepared .pb-en{font-family:var(--en);direction:ltr;font-size:12.5px;color:var(--muted)}
   .prepared .pb-contacts{display:flex;flex-wrap:wrap;gap:6px 16px;direction:ltr;font-family:var(--mono);font-size:12.5px;margin-inline-start:auto}
   .prepared .pb-contacts a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
   .prepared .pb-contacts a:hover,.prepared .pb-contacts a:focus-visible{border-color:var(--accent)}
@@ -104,8 +105,10 @@
 <footer>
   <div class="wrap">
     <div class="prepared">
-      <span class="pb-label">أُعِدّت بواسطة · Prepared by</span>
-      <span class="pb-name">هيثم المعيني · Haitham Al Maaini</span>
+      <div class="pb-text">
+        <span class="pb-ar">أُعِدّت هذه الوثيقة بواسطة هيثم المعيني</span>
+        <span class="pb-en">This document was prepared by Haitham Al Maaini</span>
+      </div>
       <span class="pb-contacts">
         <a href="tel:+971504285668">+971 50 428 5668</a>
         <a href="mailto:Haithamalmaaini@hotmail.com">Haithamalmaaini@hotmail.com</a>
