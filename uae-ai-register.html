@@ -157,8 +157,17 @@
   footer .wrap{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center}
   footer .note{max-width:58ch;line-height:1.7}
   footer .mono{font-family:var(--mono);font-size:11px;color:var(--brass);direction:ltr}
+  .prepared{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
+    padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+  .prepared .pb-text{display:flex;flex-direction:column;gap:3px}
+  .prepared .pb-ar{font-weight:600;font-size:14.5px;color:var(--ink)}
+  .prepared .pb-en{font-family:var(--en);direction:ltr;font-size:12.5px;color:var(--muted)}
+  .prepared .pb-contacts{display:flex;flex-wrap:wrap;gap:6px 16px;direction:ltr;font-family:var(--mono);font-size:12.5px;margin-inline-start:auto}
+  .prepared .pb-contacts a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  .prepared .pb-contacts a:hover,.prepared .pb-contacts a:focus-visible{border-color:var(--accent)}
 
   @media (max-width:560px){
+    .prepared .pb-contacts{margin-inline-start:0}
     .item{grid-template-columns:1fr;gap:2px}
     .ref{grid-row:auto;border-inline-end:none;border-bottom:1px solid var(--line);
       padding-inline-end:0;padding-bottom:8px;margin-bottom:8px}
@@ -397,6 +406,16 @@
 
 <footer>
   <div class="wrap">
+    <div class="prepared">
+      <div class="pb-text">
+        <span class="pb-ar">أُعِدّت هذه الوثيقة بواسطة هيثم المعيني</span>
+        <span class="pb-en">This document was prepared by Haitham Al Maaini</span>
+      </div>
+      <span class="pb-contacts">
+        <a href="tel:+971504285668">+971 50 428 5668</a>
+        <a href="mailto:Haithamalmaaini@hotmail.com">Haithamalmaaini@hotmail.com</a>
+      </span>
+    </div>
     <div class="note">جميع الروابط تشير إلى مصادر حكومية رسمية في دولة الإمارات. تُتاح النسخ الإنجليزية حيثما توفّرت. — All links point to official UAE government sources; English versions provided where available.</div>
     <div class="mono">UAE · AI Register · v1</div>
   </div>
