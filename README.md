@@ -7,14 +7,17 @@ this will be for public pages
 `watch.html` is a single-page site whose hero scrubs a pre-rendered assembly
 video (`watch-desktop.mp4` / `watch-mobile.mp4`) with scroll position.
 
-**File placement.** Keep `watch.html`, `watch-desktop.mp4`, `watch-mobile.mp4`
-and `poster.jpg` together in the same directory. The page picks the mobile or
-desktop encode at load time based on viewport width and pointer type.
+**File placement.** Keep `watch.html`, `watch-desktop.mp4`, `watch-mobile.mp4`,
+`poster.jpg` and the `fonts/` directory together in the same directory. The
+page picks the mobile or desktop encode at load time based on viewport width
+and pointer type. Fonts are self-hosted so the loader paints without waiting
+on a third-party round trip.
 
-**Poster.** `poster.jpg` is the first frame of the video. To regenerate it:
+**Poster.** `poster.jpg` is the final frame of the video (the finished watch).
+To regenerate it:
 
 ```bash
-ffmpeg -i watch-desktop.mp4 -frames:v 1 -q:v 2 poster.jpg
+ffmpeg -sseof -0.2 -i watch-desktop.mp4 -frames:v 1 -update 1 -q:v 2 poster.jpg
 ```
 
 **Must be served over HTTP.** Frame-accurate seeking relies on HTTP range

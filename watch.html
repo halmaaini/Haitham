@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meridian — Caliber 140 Pocket Chronograph</title>
-<meta name="description" content="One hundred forty components, assembled by hand. The Meridian pocket chronograph.">
+<title>Almaini — Caliber 140 Pocket Chronograph</title>
+<meta name="description" content="One hundred forty components, assembled by hand. The Almaini pocket chronograph.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23b39055' stroke-width='2'/%3E%3Cpath d='M16 9v7l5 4' fill='none' stroke='%23b39055' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/cormorant-garamond-300.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link href="fonts/fonts.css" rel="stylesheet">
 <style>
   :root{
     --black:#060605;
@@ -80,7 +80,9 @@
   #rail .ph.on .l::after{width:100%}
 
   /* ---------- hero ---------- */
-  #hero{height:520vh;position:relative}
+  /* one viewport unit family throughout — mixing vh and svh makes
+     heroProgress() drift on mobile when the toolbar retracts */
+  #hero{height:600vh;height:600svh;position:relative}
   #hero .stick{
     position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
   }
@@ -210,7 +212,7 @@
 
 <div id="loader" aria-hidden="true">
   <div class="mark">Caliber 140</div>
-  <div class="word">MERIDIAN</div>
+  <div class="word">ALMAINI</div>
   <div class="bar"><i id="loadbar"></i></div>
   <div class="pct" id="loadpct">00</div>
 </div>
@@ -218,10 +220,11 @@
 <div id="progress" aria-hidden="true"></div>
 
 <nav id="rail" aria-label="Assembly phases">
-  <div class="ph" data-i="0"><span class="n">01</span><span class="l">Components</span></div>
-  <div class="ph" data-i="1"><span class="n">02</span><span class="l">Movement</span></div>
-  <div class="ph" data-i="2"><span class="n">03</span><span class="l">Case</span></div>
-  <div class="ph" data-i="3"><span class="n">04</span><span class="l">Complete</span></div>
+  <div class="ph on"><span class="n">01</span><span class="l">Scattered</span></div>
+  <div class="ph"><span class="n">02</span><span class="l">Converging</span></div>
+  <div class="ph"><span class="n">03</span><span class="l">Movement</span></div>
+  <div class="ph"><span class="n">04</span><span class="l">Cased</span></div>
+  <div class="ph"><span class="n">05</span><span class="l">Complete</span></div>
 </nav>
 
 <section id="hero">
@@ -231,13 +234,13 @@
 
     <div id="title">
       <div class="kicker">Pocket Chronograph · Caliber 140</div>
-      <h1>MERIDIAN</h1>
+      <h1>ALMAINI</h1>
       <div class="sub">One hundred forty components. One movement.</div>
     </div>
 
     <div id="caption" aria-live="polite">
       <div class="cn" id="cap-n">01</div>
-      <div class="ct" id="cap-t">One hundred forty components, at rest.</div>
+      <div class="ct" id="cap-t">Every part, at rest.</div>
     </div>
 
     <div id="cue"><span>Scroll</span><div class="line"></div></div>
@@ -268,12 +271,12 @@
   <section class="sec rv enq">
     <div class="label">03 · Enquiries</div>
     <h2>Twelve pieces a year.</h2>
-    <p>Each Meridian is assembled by one watchmaker, start to finish, and signed under the balance cock. Delivery runs eleven months from commission. We answer every letter.</p>
+    <p>Each Almaini is assembled by one watchmaker, start to finish, and signed under the balance cock. Delivery runs eleven months from commission. We answer every letter.</p>
     <a href="mailto:enquiries@example.com">Commission an enquiry</a>
   </section>
 </main>
 
-<footer>Meridian · Caliber 140 · MMXXVI</footer>
+<footer>Almaini · Caliber 140 · MMXXVI</footer>
 
 <script>
 (function(){
@@ -303,13 +306,15 @@
   var DAMP  = 0.12;
 
   var CAPTIONS = [
-    { n:"01", t:"One hundred forty components, at rest." },
-    { n:"02", t:"The movement finds its center. Column wheel, gear train, balance." },
-    { n:"03", t:"The dial is seated. The crystal comes down." },
-    { n:"04", t:"Meridian. Wound by hand, carried for life." }
+    { n:"01", t:"Every part, at rest." },
+    { n:"02", t:"They begin to find each other." },
+    { n:"03", t:"The movement takes its shape." },
+    { n:"04", t:"Dial, case, sapphire." },
+    { n:"05", t:"Wound by hand. Carried for life." }
   ];
-  /* phase boundaries from the brief: 0.00 / 0.33 / 0.66 / 0.92 */
-  var BOUNDS = [0.33, 0.66, 0.92];
+  /* scene keyframes land on exact quarters; switch at the midpoints so
+     each label lights as its frame arrives, not after it has passed */
+  var MARKS = [0.125, 0.375, 0.625, 0.875];
 
   /* ---------- 7. loader: real buffered progress + canplaythrough + timeout ---------- */
   var revealed = false;
@@ -356,7 +361,9 @@
 
   /* ---------- scrub loop ---------- */
   var target = 0, current = 0, rafId = null, running = false;
-  var phase = -1, moved = false;
+  /* phase starts at 0 to match the markup — setPhase(0) on the first
+     tick is then a no-op instead of stripping and re-adding the caption */
+  var phase = 0, moved = false, capTimer = null;
 
   function heroProgress(){
     var rect = hero.getBoundingClientRect();
@@ -370,13 +377,16 @@
     if (i === phase) return;
     phase = i;
     phases.forEach(function(el, k){ el.classList.toggle("on", k === i); });
-    /* caption swap: fade out, replace, fade in */
+    /* caption swap: fade out, replace, fade in — clear any pending swap
+       so fast scrolling across two boundaries can't land out of order */
     caption.classList.remove("show");
-    setTimeout(function(){
+    clearTimeout(capTimer);
+    capTimer = setTimeout(function(){
+      if (phase !== i) return; /* a newer phase already won */
       capN.textContent = CAPTIONS[i].n;
       capT.textContent = CAPTIONS[i].t;
       caption.classList.add("show");
-    }, 280);
+    }, 260);
   }
 
   function tick(){
@@ -387,7 +397,9 @@
     if (Math.abs(target - current) < 0.0004) current = target;
 
     if (video.duration) {
-      var t = current * video.duration;
+      /* stop one frame short of duration — browsers clamp the very last
+         instant inconsistently (black frame, spurious 'ended') */
+      var t = current * (video.duration - FRAME);
       /* 2. throttle — only seek when the delta exceeds one source frame */
       if (Math.abs(t - video.currentTime) > FRAME) video.currentTime = t;
     }
@@ -395,7 +407,8 @@
     progress.style.transform = "scaleX(" + current + ")";
     title.style.opacity = Math.max(0, 1 - current * 9);
 
-    var i = current < BOUNDS[0] ? 0 : current < BOUNDS[1] ? 1 : current < BOUNDS[2] ? 2 : 3;
+    var i = 0;
+    for (var k = 0; k < MARKS.length; k++) if (current >= MARKS[k]) i = k + 1;
     setPhase(i);
 
     if (!moved && target > 0.002) { moved = true; cue.classList.add("hide"); }
