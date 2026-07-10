@@ -200,7 +200,7 @@
 
   /* ---------- reduced motion ---------- */
   @media (prefers-reduced-motion:reduce){
-    #hero{height:100vh}
+    #hero{height:100vh;height:100svh}
     #rail,#cue,#caption{display:none}
     .rv{opacity:1;transform:none;transition:none}
     #cue .line::after{animation:none}
@@ -365,9 +365,14 @@
      tick is then a no-op instead of stripping and re-adding the caption */
   var phase = 0, moved = false, capTimer = null;
 
+  var stick = hero.querySelector(".stick");
+
   function heroProgress(){
     var rect = hero.getBoundingClientRect();
-    var span = rect.height - innerHeight;
+    /* measure the pinned element, not innerHeight — on phones the
+       retracting toolbar grows innerHeight past 100svh and progress
+       would hit 1.0 early */
+    var span = rect.height - stick.offsetHeight;
     if (span <= 0) return 0;
     var p = -rect.top / span;
     return p < 0 ? 0 : (p > 1 ? 1 : p);
