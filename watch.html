@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian — Caliber 140 Pocket Chronograph</title>
+<meta name="description" content="One hundred forty components, assembled by hand. The Meridian pocket chronograph.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23b39055' stroke-width='2'/%3E%3Cpath d='M16 9v7l5 4' fill='none' stroke='%23b39055' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#060605;
+    --bone:#eae5d9;
+    --muted:#8d887c;
+    --dim:#55514a;
+    --brass:#b39055;
+    --hairline:rgba(234,229,217,.14);
+    --serif:"Cormorant Garamond", Georgia, serif;
+    --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:auto}
+  body{
+    background:var(--black);color:var(--bone);
+    font-family:var(--serif);font-weight:300;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--brass);color:var(--black)}
+
+  /* ---------- loader ---------- */
+  #loader{
+    position:fixed;inset:0;z-index:60;background:var(--black);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+    transition:opacity 1.1s ease, visibility 1.1s;
+  }
+  #loader.done{opacity:0;visibility:hidden;pointer-events:none}
+  #loader .mark{
+    font-family:var(--mono);font-size:11px;letter-spacing:.55em;text-indent:.55em;
+    color:var(--muted);text-transform:uppercase;
+  }
+  #loader .word{
+    font-size:clamp(34px,6vw,58px);font-weight:300;letter-spacing:.14em;text-indent:.14em;
+    color:var(--bone);
+  }
+  #loader .bar{width:min(240px,60vw);height:1px;background:var(--hairline);overflow:hidden}
+  #loader .bar i{display:block;height:100%;width:0%;background:var(--brass);transition:width .4s ease}
+  #loader .pct{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--dim)}
+
+  /* ---------- top progress hairline ---------- */
+  #progress{
+    position:fixed;top:0;left:0;right:0;height:1px;z-index:50;
+    background:var(--brass);transform:scaleX(0);transform-origin:0 50%;
+    opacity:0;transition:opacity .6s ease;
+  }
+  body.in-hero #progress{opacity:.9}
+
+  /* ---------- phase rail ---------- */
+  #rail{
+    position:fixed;left:clamp(20px,3.4vw,52px);top:50%;transform:translateY(-50%);
+    z-index:40;display:flex;flex-direction:column;gap:30px;
+    opacity:0;transition:opacity .9s ease;
+  }
+  body.ready.in-hero #rail{opacity:1}
+  #rail .ph{
+    display:flex;align-items:baseline;gap:14px;
+    font-family:var(--mono);text-transform:uppercase;
+    color:var(--dim);transition:color .6s ease;
+  }
+  #rail .ph .n{font-size:10px;letter-spacing:.2em}
+  #rail .ph .l{font-size:10px;letter-spacing:.3em;position:relative}
+  #rail .ph .l::after{
+    content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;
+    background:var(--brass);transition:width .6s ease;
+  }
+  #rail .ph.on{color:var(--bone)}
+  #rail .ph.on .n{color:var(--brass)}
+  #rail .ph.on .l::after{width:100%}
+
+  /* ---------- hero ---------- */
+  #hero{height:520vh;position:relative}
+  #hero .stick{
+    position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;
+  }
+  #hero video{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    background:var(--black);
+  }
+  #hero .vignette{
+    position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 120% 90% at 50% 50%, transparent 42%, rgba(6,6,5,.62) 100%),
+      linear-gradient(180deg, rgba(6,6,5,.5) 0%, transparent 16%, transparent 82%, rgba(6,6,5,.66) 100%);
+  }
+
+  /* hero title — dissolves as the scrub begins */
+  #title{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:22px;text-align:center;
+    pointer-events:none;
+  }
+  #title .kicker{
+    font-family:var(--mono);font-size:10px;letter-spacing:.5em;text-indent:.5em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  #title h1{
+    font-size:clamp(52px,11vw,132px);font-weight:300;line-height:1;
+    letter-spacing:.12em;text-indent:.12em;color:var(--bone);
+  }
+  #title .sub{
+    font-size:clamp(15px,2vw,19px);font-style:italic;color:var(--muted);letter-spacing:.04em;
+  }
+
+  /* phase caption */
+  #caption{
+    position:absolute;left:0;right:0;bottom:clamp(72px,11vh,110px);
+    display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;
+    padding:0 24px;pointer-events:none;
+    opacity:0;transform:translateY(10px);
+    transition:opacity .55s ease, transform .55s ease;
+  }
+  #caption.show{opacity:1;transform:none}
+  #caption .cn{font-family:var(--mono);font-size:10px;letter-spacing:.4em;text-indent:.4em;color:var(--brass)}
+  #caption .ct{font-size:clamp(19px,2.6vw,27px);font-weight:300;font-style:italic;color:var(--bone)}
+
+  /* scroll cue */
+  #cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+    transition:opacity .8s ease;pointer-events:none;
+  }
+  #cue.hide{opacity:0}
+  #cue span{font-family:var(--mono);font-size:9px;letter-spacing:.42em;text-indent:.42em;text-transform:uppercase;color:var(--muted)}
+  #cue .line{width:1px;height:34px;background:var(--hairline);overflow:hidden;position:relative}
+  #cue .line::after{
+    content:"";position:absolute;left:0;top:-100%;width:1px;height:100%;
+    background:var(--brass);animation:drip 2.1s cubic-bezier(.65,0,.35,1) infinite;
+  }
+  @keyframes drip{0%{top:-100%}55%{top:100%}100%{top:100%}}
+
+  /* ---------- content below the hero ---------- */
+  main{position:relative;z-index:10;background:var(--black)}
+  main .sec{
+    max-width:640px;margin:0 auto;
+    padding:clamp(120px,18vh,200px) 28px;
+  }
+  main .sec .label{
+    font-family:var(--mono);font-size:10px;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--brass);margin-bottom:34px;display:flex;align-items:center;gap:18px;
+  }
+  main .sec .label::after{content:"";height:1px;flex:1;background:var(--hairline)}
+  main .sec h2{
+    font-size:clamp(30px,4.6vw,44px);font-weight:300;line-height:1.15;
+    margin-bottom:30px;letter-spacing:.01em;
+  }
+  main .sec p{
+    font-size:clamp(17px,2vw,19.5px);line-height:1.85;color:var(--muted);
+    max-width:56ch;
+  }
+  main .sec p + p{margin-top:1.4em}
+  main .sec p em{color:var(--bone);font-style:italic}
+
+  main .sec .spec{
+    margin-top:44px;border-top:1px solid var(--hairline);
+  }
+  main .sec .spec div{
+    display:flex;justify-content:space-between;gap:24px;
+    padding:14px 0;border-bottom:1px solid var(--hairline);
+    font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  }
+  main .sec .spec dt{color:var(--dim);text-transform:uppercase}
+  main .sec .spec dd{color:var(--bone)}
+
+  .enq a{
+    display:inline-block;margin-top:38px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--bone);text-decoration:none;
+    padding-bottom:10px;border-bottom:1px solid var(--brass);
+    transition:color .4s ease, letter-spacing .4s ease;
+  }
+  .enq a:hover{color:var(--brass);letter-spacing:.38em}
+
+  /* reveal on scroll */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s ease}
+  .rv.in{opacity:1;transform:none}
+
+  footer{
+    border-top:1px solid var(--hairline);
+    padding:44px 28px 60px;text-align:center;
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);
+  }
+
+  @media (max-width:860px){
+    #rail{display:none}
+  }
+
+  /* ---------- reduced motion ---------- */
+  @media (prefers-reduced-motion:reduce){
+    #hero{height:100vh}
+    #rail,#cue,#caption{display:none}
+    .rv{opacity:1;transform:none;transition:none}
+    #cue .line::after{animation:none}
+    #loader{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="mark">Caliber 140</div>
+  <div class="word">MERIDIAN</div>
+  <div class="bar"><i id="loadbar"></i></div>
+  <div class="pct" id="loadpct">00</div>
+</div>
+
+<div id="progress" aria-hidden="true"></div>
+
+<nav id="rail" aria-label="Assembly phases">
+  <div class="ph" data-i="0"><span class="n">01</span><span class="l">Components</span></div>
+  <div class="ph" data-i="1"><span class="n">02</span><span class="l">Movement</span></div>
+  <div class="ph" data-i="2"><span class="n">03</span><span class="l">Case</span></div>
+  <div class="ph" data-i="3"><span class="n">04</span><span class="l">Complete</span></div>
+</nav>
+
+<section id="hero">
+  <div class="stick">
+    <video id="v" playsinline muted preload="auto" poster="poster.jpg" aria-label="One hundred forty watch components assembling into a finished pocket chronograph"></video>
+    <div class="vignette"></div>
+
+    <div id="title">
+      <div class="kicker">Pocket Chronograph · Caliber 140</div>
+      <h1>MERIDIAN</h1>
+      <div class="sub">One hundred forty components. One movement.</div>
+    </div>
+
+    <div id="caption" aria-live="polite">
+      <div class="cn" id="cap-n">01</div>
+      <div class="ct" id="cap-t">One hundred forty components, at rest.</div>
+    </div>
+
+    <div id="cue"><span>Scroll</span><div class="line"></div></div>
+  </div>
+</section>
+
+<main>
+  <section class="sec rv">
+    <div class="label">01 · The Movement</div>
+    <h2>A column wheel, not a cam.</h2>
+    <p>The chronograph is governed by a column wheel cut from a single blank of steel. Start, stop, return — each command passes through the same seven teeth. The gear train runs on nineteen jewels. The balance beats at 21,600 an hour.</p>
+    <p>Every bridge is bevelled by hand and drawn with Geneva stripes. You will see this work through the hunter case back, <em>and nowhere else</em>.</p>
+    <dl class="spec">
+      <div><dt>Components</dt><dd>140</dd></div>
+      <div><dt>Jewels</dt><dd>19</dd></div>
+      <div><dt>Frequency</dt><dd>3 Hz · 21,600 vph</dd></div>
+      <div><dt>Reserve</dt><dd>52 hours</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec rv">
+    <div class="label">02 · The Dial</div>
+    <h2>Silver, grained, printed once.</h2>
+    <p>The dial is solid silver, grained by hand with a boxwood brush. Numerals are printed in a single pass of black enamel — no second strike, no correction. The hands are steel, heated over a flame until they turn the blue of deep water.</p>
+    <p>The crystal above them is sapphire, domed, and colder to the touch than the case that holds it.</p>
+  </section>
+
+  <section class="sec rv enq">
+    <div class="label">03 · Enquiries</div>
+    <h2>Twelve pieces a year.</h2>
+    <p>Each Meridian is assembled by one watchmaker, start to finish, and signed under the balance cock. Delivery runs eleven months from commission. We answer every letter.</p>
+    <a href="mailto:enquiries@example.com">Commission an enquiry</a>
+  </section>
+</main>
+
+<footer>Meridian · Caliber 140 · MMXXVI</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var video   = document.getElementById("v");
+  var hero    = document.getElementById("hero");
+  var loader  = document.getElementById("loader");
+  var loadbar = document.getElementById("loadbar");
+  var loadpct = document.getElementById("loadpct");
+  var progress= document.getElementById("progress");
+  var title   = document.getElementById("title");
+  var caption = document.getElementById("caption");
+  var capN    = document.getElementById("cap-n");
+  var capT    = document.getElementById("cap-t");
+  var cue     = document.getElementById("cue");
+  var phases  = Array.prototype.slice.call(document.querySelectorAll("#rail .ph"));
+
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* 3. Pick the encode BEFORE setting src — phones must never fetch the desktop file */
+  var small = innerWidth < 820 || matchMedia("(pointer: coarse)").matches;
+  video.src = small ? "watch-mobile.mp4" : "watch-desktop.mp4";
+
+  /* Source is 24fps — throttling any finer than one frame just burns decoder seeks */
+  var FRAME = 1 / 24;
+  var DAMP  = 0.12;
+
+  var CAPTIONS = [
+    { n:"01", t:"One hundred forty components, at rest." },
+    { n:"02", t:"The movement finds its center. Column wheel, gear train, balance." },
+    { n:"03", t:"The dial is seated. The crystal comes down." },
+    { n:"04", t:"Meridian. Wound by hand, carried for life." }
+  ];
+  /* phase boundaries from the brief: 0.00 / 0.33 / 0.66 / 0.92 */
+  var BOUNDS = [0.33, 0.66, 0.92];
+
+  /* ---------- 7. loader: real buffered progress + canplaythrough + timeout ---------- */
+  var revealed = false;
+  function setLoad(f){
+    f = Math.max(0, Math.min(1, f));
+    loadbar.style.width = (f * 100) + "%";
+    loadpct.textContent = String(Math.round(f * 100)).padStart(2, "0");
+  }
+  function reveal(){
+    if (revealed) return;
+    revealed = true;
+    setLoad(1);
+    loader.classList.add("done");
+    document.body.classList.add("ready");
+    if (!reduced) caption.classList.add("show");
+  }
+  video.addEventListener("progress", function(){
+    if (revealed || !video.duration || !video.buffered.length) return;
+    setLoad(video.buffered.end(video.buffered.length - 1) / video.duration);
+  });
+  video.addEventListener("canplaythrough", reveal, { once:true });
+  /* never trap the user behind the loader: reveal on decode error too */
+  video.addEventListener("error", reveal, { once:true });
+  setTimeout(function(){
+    if (video.readyState >= 2) { reveal(); return; }
+    var poll = setInterval(function(){
+      if (video.readyState >= 2 || video.error) { clearInterval(poll); reveal(); }
+    }, 400);
+  }, 6000);
+
+  /* ---------- 4. warm the Safari decoder: play → pause on loadedmetadata ---------- */
+  video.addEventListener("loadedmetadata", function(){
+    if (reduced) {
+      /* 8. reduced motion: land on the finished watch, no scrub */
+      video.currentTime = Math.max(0, video.duration - FRAME);
+      return;
+    }
+    var p = video.play();
+    if (p && p.then) p.then(function(){ video.pause(); }).catch(function(){ /* autoplay blocked — fine */ });
+    else video.pause();
+  });
+
+  if (reduced) return; /* nothing below applies */
+
+  /* ---------- scrub loop ---------- */
+  var target = 0, current = 0, rafId = null, running = false;
+  var phase = -1, moved = false;
+
+  function heroProgress(){
+    var rect = hero.getBoundingClientRect();
+    var span = rect.height - innerHeight;
+    if (span <= 0) return 0;
+    var p = -rect.top / span;
+    return p < 0 ? 0 : (p > 1 ? 1 : p);
+  }
+
+  function setPhase(i){
+    if (i === phase) return;
+    phase = i;
+    phases.forEach(function(el, k){ el.classList.toggle("on", k === i); });
+    /* caption swap: fade out, replace, fade in */
+    caption.classList.remove("show");
+    setTimeout(function(){
+      capN.textContent = CAPTIONS[i].n;
+      capT.textContent = CAPTIONS[i].t;
+      caption.classList.add("show");
+    }, 280);
+  }
+
+  function tick(){
+    target = heroProgress();
+
+    /* 1. damp — the lag IS the feel */
+    current += (target - current) * DAMP;
+    if (Math.abs(target - current) < 0.0004) current = target;
+
+    if (video.duration) {
+      var t = current * video.duration;
+      /* 2. throttle — only seek when the delta exceeds one source frame */
+      if (Math.abs(t - video.currentTime) > FRAME) video.currentTime = t;
+    }
+
+    progress.style.transform = "scaleX(" + current + ")";
+    title.style.opacity = Math.max(0, 1 - current * 9);
+
+    var i = current < BOUNDS[0] ? 0 : current < BOUNDS[1] ? 1 : current < BOUNDS[2] ? 2 : 3;
+    setPhase(i);
+
+    if (!moved && target > 0.002) { moved = true; cue.classList.add("hide"); }
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function start(){ if (!running) { running = true; rafId = requestAnimationFrame(tick); } }
+  function stop(){ if (running) { running = false; cancelAnimationFrame(rafId); } }
+
+  /* ---------- 6. no render loop for a video nobody can see ---------- */
+  new IntersectionObserver(function(entries){
+    var on = entries[0].isIntersecting;
+    document.body.classList.toggle("in-hero", on);
+    on ? start() : stop();
+  }, { rootMargin: "80px" }).observe(hero);
+
+  /* ---------- reveal-on-scroll for the copy sections ---------- */
+  var rv = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add("in"); rv.unobserve(e.target); }
+    });
+  }, { threshold: 0.18 });
+  document.querySelectorAll(".rv").forEach(function(el){ rv.observe(el); });
+})();
+</script>
+</body>
+</html>
