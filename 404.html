@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found · Haitham Al Maaini</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#060605">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link href="/fonts/fonts.css" rel="stylesheet">
+<style>
+  :root{
+    --black:#060605;--bone:#eae5d9;--muted:#8d887c;--brass:#b39055;
+    --serif:"Cormorant Garamond", Georgia, serif;
+    --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--black);color:var(--bone);font-family:var(--serif);font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;
+    background-image:radial-gradient(ellipse 70% 55% at 50% 50%, #12110f 0%, var(--black) 70%);
+  }
+  main{display:flex;flex-direction:column;align-items:center;gap:26px;max-width:560px}
+  .code{font-family:var(--mono);font-size:11px;letter-spacing:.5em;text-indent:.5em;color:var(--brass)}
+  h1{font-size:clamp(38px,7vw,64px);font-weight:300;line-height:1.08}
+  p{font-size:clamp(17px,2.4vw,20px);font-style:italic;color:var(--muted);line-height:1.6}
+  a{
+    margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--bone);text-decoration:none;padding-bottom:10px;border-bottom:1px solid var(--brass);
+    transition:color .4s ease, letter-spacing .4s ease;
+  }
+  a:hover,a:focus-visible{color:var(--brass);letter-spacing:.38em}
+  a:focus-visible{outline:1px solid var(--brass);outline-offset:6px}
+  @media (prefers-reduced-motion:reduce){a{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="code">404</div>
+  <h1>This piece is missing.</h1>
+  <p>The page you were looking for isn't part of the whole.</p>
+  <a href="/">Back to the whole</a>
+</main>
+</body>
+</html>
