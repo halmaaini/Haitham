@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Al Maaini — Caliber 140 Pocket Chronograph</title>
-<meta name="description" content="One hundred forty components, assembled by hand. The Al Maaini pocket chronograph.">
+<title>Haitham Al Maaini</title>
+<meta name="description" content="Haitham Al Maaini. Every solution starts in pieces: gathering the information, understanding the workflow, then assembling something that simply works.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23b39055' stroke-width='2'/%3E%3Cpath d='M16 9v7l5 4' fill='none' stroke='%23b39055' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/cormorant-garamond-300.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -42,9 +42,10 @@
     color:var(--muted);text-transform:uppercase;
   }
   #loader .word{
-    font-size:clamp(34px,6vw,58px);font-weight:300;letter-spacing:.14em;text-indent:.14em;
-    color:var(--bone);
+    font-size:clamp(30px,6vw,58px);font-weight:300;letter-spacing:.14em;text-indent:.14em;
+    color:var(--bone);text-align:center;line-height:1.1;
   }
+  #loader .word span,#title h1 span{display:block}
   #loader .bar{width:min(240px,60vw);height:1px;background:var(--hairline);overflow:hidden}
   #loader .bar i{display:block;height:100%;width:0%;background:var(--brass);transition:width .4s ease}
   #loader .pct{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--dim)}
@@ -56,28 +57,6 @@
     opacity:0;transition:opacity .6s ease;
   }
   body.in-hero #progress{opacity:.9}
-
-  /* ---------- phase rail ---------- */
-  #rail{
-    position:fixed;left:clamp(20px,3.4vw,52px);top:50%;transform:translateY(-50%);
-    z-index:40;display:flex;flex-direction:column;gap:30px;
-    opacity:0;transition:opacity .9s ease;
-  }
-  body.ready.in-hero #rail{opacity:1}
-  #rail .ph{
-    display:flex;align-items:baseline;gap:14px;
-    font-family:var(--mono);text-transform:uppercase;
-    color:var(--dim);transition:color .6s ease;
-  }
-  #rail .ph .n{font-size:10px;letter-spacing:.2em}
-  #rail .ph .l{font-size:10px;letter-spacing:.3em;position:relative}
-  #rail .ph .l::after{
-    content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;
-    background:var(--brass);transition:width .6s ease;
-  }
-  #rail .ph.on{color:var(--bone)}
-  #rail .ph.on .n{color:var(--brass)}
-  #rail .ph.on .l::after{width:100%}
 
   /* ---------- hero ---------- */
   /* one viewport unit family throughout — mixing vh and svh makes
@@ -108,7 +87,7 @@
     text-transform:uppercase;color:var(--muted);
   }
   #title h1{
-    font-size:clamp(52px,11vw,132px);font-weight:300;line-height:1;
+    font-size:clamp(44px,9.5vw,120px);font-weight:300;line-height:1.02;
     letter-spacing:.12em;text-indent:.12em;color:var(--bone);
   }
   #title .sub{
@@ -194,14 +173,10 @@
     font-family:var(--mono);font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);
   }
 
-  @media (max-width:860px){
-    #rail{display:none}
-  }
-
   /* ---------- reduced motion ---------- */
   @media (prefers-reduced-motion:reduce){
     #hero{height:100vh;height:100svh}
-    #rail,#cue,#caption{display:none}
+    #cue,#caption{display:none}
     .rv{opacity:1;transform:none;transition:none}
     #cue .line::after{animation:none}
     #loader{transition:none}
@@ -211,36 +186,28 @@
 <body>
 
 <div id="loader" aria-hidden="true">
-  <div class="mark">Caliber 140</div>
-  <div class="word">AL MAAINI</div>
+  <div class="mark">Assembling</div>
+  <div class="word"><span>HAITHAM</span><span>AL MAAINI</span></div>
   <div class="bar"><i id="loadbar"></i></div>
   <div class="pct" id="loadpct">00</div>
 </div>
 
 <div id="progress" aria-hidden="true"></div>
 
-<nav id="rail" aria-label="Assembly phases">
-  <div class="ph on"><span class="n">01</span><span class="l">Scattered</span></div>
-  <div class="ph"><span class="n">02</span><span class="l">Converging</span></div>
-  <div class="ph"><span class="n">03</span><span class="l">Movement</span></div>
-  <div class="ph"><span class="n">04</span><span class="l">Cased</span></div>
-  <div class="ph"><span class="n">05</span><span class="l">Complete</span></div>
-</nav>
-
 <section id="hero">
   <div class="stick">
-    <video id="v" playsinline muted preload="auto" poster="poster.jpg" aria-label="One hundred forty watch components assembling into a finished pocket chronograph"></video>
+    <video id="v" playsinline muted preload="auto" poster="poster.jpg" aria-label="Scattered watch parts assembling into a finished pocket watch, a metaphor for turning scattered information into a working solution"></video>
     <div class="vignette"></div>
 
     <div id="title">
-      <div class="kicker">Pocket Chronograph · Caliber 140</div>
-      <h1>AL MAAINI</h1>
-      <div class="sub">One hundred forty components. One movement.</div>
+      <div class="kicker">Information · Workflow · Solution</div>
+      <h1><span>HAITHAM</span><span>AL MAAINI</span></h1>
+      <div class="sub">Every solution starts in pieces.</div>
     </div>
 
     <div id="caption" aria-live="polite">
       <div class="cn" id="cap-n">01</div>
-      <div class="ct" id="cap-t">Every part, at rest.</div>
+      <div class="ct" id="cap-t">It starts in pieces.</div>
     </div>
 
     <div id="cue"><span>Scroll</span><div class="line"></div></div>
@@ -249,34 +216,34 @@
 
 <main>
   <section class="sec rv">
-    <div class="label">01 · The Movement</div>
-    <h2>A column wheel, not a cam.</h2>
-    <p>The chronograph is governed by a column wheel cut from a single blank of steel. Start, stop, return — each command passes through the same seven teeth. The gear train runs on nineteen jewels. The balance beats at 21,600 an hour.</p>
-    <p>Every bridge and plate is frosted, then grained by hand — texture built for grip and shadow, not for show. The caseback closes with a solid snap. <em>Once shut, the movement is never seen again.</em></p>
+    <div class="label">01 · The Pieces</div>
+    <h2>Nothing arrives assembled.</h2>
+    <p>A real problem never shows up whole. It comes as scattered facts, half-documented processes, and people who each see one corner of it. The first job is to gather all of it, even the parts that look unimportant.</p>
+    <p>I ask until I understand how the work actually moves: who touches what, where it slows down, where it breaks. <em>The answer is usually already there, in pieces.</em></p>
     <dl class="spec">
-      <div><dt>Components</dt><dd>140</dd></div>
-      <div><dt>Jewels</dt><dd>19</dd></div>
-      <div><dt>Frequency</dt><dd>3 Hz · 21,600 vph</dd></div>
-      <div><dt>Reserve</dt><dd>52 hours</dd></div>
+      <div><dt>Gather</dt><dd>Every source, every detail</dd></div>
+      <div><dt>Understand</dt><dd>How the work really flows</dd></div>
+      <div><dt>Assemble</dt><dd>Each part where it belongs</dd></div>
+      <div><dt>Refine</dt><dd>Until it simply works</dd></div>
     </dl>
   </section>
 
   <section class="sec rv">
-    <div class="label">02 · The Dial</div>
-    <h2>White, gold, and blued steel.</h2>
-    <p>The dial is a soft, pearled white — not painted, not printed. Each Roman numeral is cast in gold and applied by hand, set and polished one at a time. The hands are steel, heated over a flame until they turn the blue of deep water.</p>
-    <p>The crystal above them is sapphire, domed, and colder to the touch than the case that holds it.</p>
+    <div class="label">02 · The Solution</div>
+    <h2>Precision is assembled, not found.</h2>
+    <p>A good solution looks inevitable once it's finished, the way a watch looks like it was always one object. It wasn't. Every part was understood before it was placed, and nothing is there without a reason.</p>
+    <p>That is the standard I work to: the whole picture first, then a solution that fits it exactly.</p>
   </section>
 
   <section class="sec rv enq">
-    <div class="label">03 · Enquiries</div>
-    <h2>Twelve pieces a year.</h2>
-    <p>Each Al Maaini is assembled by one watchmaker, start to finish, and signed under the balance cock. Delivery runs eleven months from commission. We answer every letter.</p>
-    <a href="mailto:enquiries@example.com">Commission an enquiry</a>
+    <div class="label">03 · Contact</div>
+    <h2>Bring me the pieces.</h2>
+    <p>If you have a problem that feels scattered, a process nobody fully understands, or a workflow that should be simpler than it is, I'd like to hear about it.</p>
+    <a href="mailto:Haithamalmaaini@hotmail.com">Get in touch</a>
   </section>
 </main>
 
-<footer>Al Maaini · Caliber 140 · MMXXVI</footer>
+<footer>Haitham Al Maaini · MMXXVI</footer>
 
 <script>
 (function(){
@@ -293,7 +260,6 @@
   var capN    = document.getElementById("cap-n");
   var capT    = document.getElementById("cap-t");
   var cue     = document.getElementById("cue");
-  var phases  = Array.prototype.slice.call(document.querySelectorAll("#rail .ph"));
 
   var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -306,11 +272,11 @@
   var DAMP  = 0.12;
 
   var CAPTIONS = [
-    { n:"01", t:"Every part, at rest." },
-    { n:"02", t:"They begin to find each other." },
-    { n:"03", t:"The movement takes its shape." },
-    { n:"04", t:"Dial, case, sapphire." },
-    { n:"05", t:"Wound by hand. Carried for life." }
+    { n:"01", t:"It starts in pieces." },
+    { n:"02", t:"Gather every detail. Ask every question." },
+    { n:"03", t:"Until the workflow shows itself." },
+    { n:"04", t:"Each part, placed where it belongs." },
+    { n:"05", t:"Then it simply works." }
   ];
   /* scene keyframes land on exact quarters; switch at the midpoints so
      each label lights as its frame arrives, not after it has passed */
@@ -381,7 +347,6 @@
   function setPhase(i){
     if (i === phase) return;
     phase = i;
-    phases.forEach(function(el, k){ el.classList.toggle("on", k === i); });
     /* caption swap: fade out, replace, fade in — clear any pending swap
        so fast scrolling across two boundaries can't land out of order */
     caption.classList.remove("show");
