@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Haitham Al Maaini</title>
-<meta name="description" content="Haitham Al Maaini. Every solution starts in pieces: gathering the information, understanding the workflow, then assembling something that simply works.">
+<meta name="description" content="Haitham Al Maaini. Systems thinking and operational design: diagnosing messy operations, redesigning them, and building working systems with people, process, automation and AI.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23b39055' stroke-width='2'/%3E%3Cpath d='M16 9v7l5 4' fill='none' stroke='%23b39055' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/cormorant-garamond-300.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/ibm-plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -173,6 +173,11 @@
     font-family:var(--mono);font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);
   }
 
+  @media (max-width:480px){
+    #title .kicker{letter-spacing:.28em;text-indent:.28em}
+    main .sec .spec div{flex-direction:column;gap:6px}
+  }
+
   /* ---------- reduced motion ---------- */
   @media (prefers-reduced-motion:reduce){
     #hero{height:100vh;height:100svh}
@@ -200,7 +205,7 @@
     <div class="vignette"></div>
 
     <div id="title">
-      <div class="kicker">Information · Workflow · Solution</div>
+      <div class="kicker">Diagnose · Design · Build · Stabilize</div>
       <h1><span>HAITHAM</span><span>AL MAAINI</span></h1>
       <div class="sub">Every solution starts in pieces.</div>
     </div>
@@ -218,27 +223,28 @@
   <section class="sec rv">
     <div class="label">01 · The Pieces</div>
     <h2>Nothing arrives assembled.</h2>
-    <p>A real problem never shows up whole. It comes as scattered facts, half-documented processes, and people who each see one corner of it. The first job is to gather all of it, even the parts that look unimportant.</p>
-    <p>I ask until I understand how the work actually moves: who touches what, where it slows down, where it breaks. <em>The answer is usually already there, in pieces.</em></p>
+    <p>A messy operation never shows up whole. It arrives as scattered steps, unwritten rules, approvals nobody remembers adding, and people who each see one corner of it.</p>
+    <p>Before solving anything, I ask whether it's the right problem. The stated issue is rarely the real constraint. <em>The structure behind it usually is.</em></p>
     <dl class="spec">
-      <div><dt>Gather</dt><dd>Every source, every detail</dd></div>
-      <div><dt>Understand</dt><dd>How the work really flows</dd></div>
-      <div><dt>Assemble</dt><dd>Each part where it belongs</dd></div>
-      <div><dt>Refine</dt><dd>Until it simply works</dd></div>
+      <div><dt>Diagnose</dt><dd>Bottlenecks, gaps, wrong assumptions</dd></div>
+      <div><dt>Design</dt><dd>Roles, rules, information flow</dd></div>
+      <div><dt>Build</dt><dd>People, process, automation, AI</dd></div>
+      <div><dt>Stabilize</dt><dd>Tested, controlled, reliable</dd></div>
     </dl>
   </section>
 
   <section class="sec rv">
     <div class="label">02 · The Solution</div>
     <h2>Precision is assembled, not found.</h2>
-    <p>A good solution looks inevitable once it's finished, the way a watch looks like it was always one object. It wasn't. Every part was understood before it was placed, and nothing is there without a reason.</p>
-    <p>That is the standard I work to: the whole picture first, then a solution that fits it exactly.</p>
+    <p>A good system looks obvious once it's finished, the way a watch looks like it was always one object. It wasn't. Every part was questioned before it was placed: steps removed, bottlenecks cleared, decisions moved closer to the people doing the work.</p>
+    <p>A queue at an admissions desk isn't solved by typing faster. Enter only what's needed while the student is there, finish the rest when the desk is quiet. <em>Same people, no queue.</em></p>
+    <p>Then it gets tested in the real environment, fixed, and given the controls it needs. The goal is a machine that keeps running after I step back.</p>
   </section>
 
   <section class="sec rv enq">
     <div class="label">03 · Contact</div>
     <h2>Bring me the pieces.</h2>
-    <p>If you have a problem that feels scattered, a process nobody fully understands, or a workflow that should be simpler than it is, I'd like to hear about it.</p>
+    <p>A messy operation, a workflow that fights the people using it, or an idea that needs to become a working system. I'll understand it, redesign it, build it, and get it running properly.</p>
     <a href="mailto:Haithamalmaaini@hotmail.com">Get in touch</a>
   </section>
 </main>
@@ -273,10 +279,10 @@
 
   var CAPTIONS = [
     { n:"01", t:"It starts in pieces." },
-    { n:"02", t:"Gather every detail. Ask every question." },
-    { n:"03", t:"Until the workflow shows itself." },
-    { n:"04", t:"Each part, placed where it belongs." },
-    { n:"05", t:"Then it simply works." }
+    { n:"02", t:"Diagnose: how does the work really run?" },
+    { n:"03", t:"Design: what structure should be there?" },
+    { n:"04", t:"Build: turn the design into something real." },
+    { n:"05", t:"Stabilize: until it runs without me." }
   ];
   /* scene keyframes land on exact quarters; switch at the midpoints so
      each label lights as its frame arrives, not after it has passed */
