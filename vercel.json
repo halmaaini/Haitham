@@ -1,4 +1,10 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/watch", "destination": "/", "permanent": true },
+    { "source": "/uae-ai-register", "destination": "/", "permanent": true },
+    { "source": "/ai-prompts-learning", "destination": "/", "permanent": true },
+    { "source": "/archive/:path*", "destination": "/", "permanent": true }
+  ]
 }

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موارد ومراجع الذكاء الاصطناعي</title>
+<meta name="description" content="بوابة موارد الذكاء الاصطناعي — سجل السياسات الرسمية في دولة الإمارات، ومكتبات الأوامر وموارد التعلّم.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14241f; --paper:#eef1ee; --card:#ffffff;
+    --accent:#15604f; --accent-soft:#e2ede8; --brass:#9a7b3f;
+    --muted:#5e6b65; --line:#e3e6e2; --line-strong:#cfd4cf; --radius:14px;
+    --ar:"IBM Plex Sans Arabic", system-ui, sans-serif;
+    --en:"IBM Plex Sans", system-ui, sans-serif;
+    --mono:"IBM Plex Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--ar);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+
+  header.top{background:var(--ink);color:#f4f7f5;padding:64px 0 56px;position:relative;overflow:hidden}
+  header.top::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;
+    background:linear-gradient(90deg,var(--brass) 0%,var(--accent) 55%,transparent 100%)}
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.32em;text-transform:uppercase;color:#9fb6ad;margin-bottom:20px;direction:ltr}
+  header.top h1{font-weight:700;font-size:clamp(28px,5.8vw,44px);line-height:1.22;max-width:20ch}
+  header.top .sub{font-family:var(--en);direction:ltr;font-size:clamp(14px,2.4vw,17px);color:#bcccc5;font-weight:400;margin-top:14px}
+  header.top p.lede{margin-top:26px;max-width:60ch;color:#cdd8d3;font-size:15.5px;font-weight:300}
+
+  main{padding:48px 0 70px}
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  a.card{
+    text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:26px 24px 22px;display:flex;flex-direction:column;
+    position:relative;overflow:hidden;
+    transition:border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+  }
+  a.card::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;
+    background:linear-gradient(180deg,var(--brass),var(--accent));opacity:.0;transition:opacity .18s ease}
+  a.card:hover,a.card:focus-visible{border-color:var(--line-strong);box-shadow:0 10px 30px -18px rgba(20,36,31,.5);transform:translateY(-2px)}
+  a.card:hover::before,a.card:focus-visible::before{opacity:1}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .card .num{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--brass);direction:ltr;letter-spacing:.06em;margin-bottom:16px}
+  .card h2{font-weight:600;font-size:20px;line-height:1.35;color:var(--ink)}
+  .card .en{font-family:var(--en);direction:ltr;font-size:13px;color:var(--muted);margin-top:6px;font-weight:400}
+  .card .desc{font-size:14px;color:var(--muted);margin-top:14px;flex:1}
+  .card .go{margin-top:18px;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--accent);direction:ltr;display:inline-flex;align-items:center;gap:8px}
+  .card .go svg{width:13px;height:13px}
+
+  footer{border-top:1px solid var(--line-strong);padding:26px 0 50px;color:var(--muted);font-size:12.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:space-between;align-items:center}
+  footer .note{max-width:60ch;line-height:1.7}
+  footer .mono{font-family:var(--mono);font-size:11px;color:var(--brass);direction:ltr}
+  .prepared{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;
+    padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--line)}
+  .prepared .pb-text{display:flex;flex-direction:column;gap:3px}
+  .prepared .pb-ar{font-weight:600;font-size:14.5px;color:var(--ink)}
+  .prepared .pb-en{font-family:var(--en);direction:ltr;font-size:12.5px;color:var(--muted)}
+  .prepared .pb-contacts{display:flex;flex-wrap:wrap;gap:6px 16px;direction:ltr;font-family:var(--mono);font-size:12.5px;margin-inline-start:auto}
+  .prepared .pb-contacts a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  .prepared .pb-contacts a:hover,.prepared .pb-contacts a:focus-visible{border-color:var(--accent)}
+
+  @media (max-width:600px){.cards{grid-template-columns:1fr}.prepared .pb-contacts{margin-inline-start:0}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kicker">Artificial Intelligence · Resource Hub</div>
+    <h1>موارد ومراجع الذكاء الاصطناعي</h1>
+    <div class="sub">AI Policies, Prompts &amp; Learning — A Curated Hub</div>
+    <p class="lede">بوابة تجمع المصادر الرسمية لسياسات الذكاء الاصطناعي في دولة الإمارات، إلى جانب مكتبات الأوامر وموارد التعلّم. اختر القسم الذي يناسبك للبدء.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="cards">
+
+      <a class="card" href="/uae-ai-register">
+        <div class="num">01</div>
+        <h2>سجل سياسات الذكاء الاصطناعي في دولة الإمارات</h2>
+        <div class="en">UAE AI Policies, Charters &amp; Resources</div>
+        <p class="desc">الوثائق الرسمية والسياسات والأدلة والمبادئ المنظِّمة للذكاء الاصطناعي على المستويين الاتحادي ودبي — بالعربية والإنجليزية ونُسخ PDF.</p>
+        <span class="go">افتح السجل <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </a>
+
+      <a class="card" href="/ai-prompts-learning">
+        <div class="num">02</div>
+        <h2>أوامر الذكاء الاصطناعي وموارد التعلّم</h2>
+        <div class="en">AI Prompt Libraries &amp; Learning Resources</div>
+        <p class="desc">موارد عربية لتعلّم كتابة الأوامر، مع مكتبات الأوامر والدورات التأسيسية من Microsoft وGoogle وAnthropic وOpenAI وغيرها.</p>
+        <span class="go">افتح الموارد <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
+      </a>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="prepared">
+      <div class="pb-text">
+        <span class="pb-ar">أُعِدّت هذه الوثيقة بواسطة هيثم المعيني</span>
+        <span class="pb-en">This document was prepared by Haitham Al Maaini</span>
+      </div>
+      <span class="pb-contacts">
+        <a href="tel:+971504285668">+971 50 428 5668</a>
+        <a href="mailto:Haithamalmaaini@hotmail.com">Haithamalmaaini@hotmail.com</a>
+      </span>
+    </div>
+    <div class="note">روابط تشير إلى مصادر رسمية وموثوقة. القاعدة الذهبية: لا تُدخل بيانات شخصية أو سرية في الأدوات العامة. — Curated links to official sources. Never paste personal or confidential data into public AI tools.</div>
+    <div class="mono">AI · Resource Hub · v1</div>
+  </div>
+</footer>
+
+</body>
+</html>
