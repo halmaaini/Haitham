@@ -79,32 +79,49 @@
   /* hero title — dissolves as the scrub begins */
   #title{
     position:absolute;inset:0;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;gap:22px;text-align:center;
-    pointer-events:none;
+    align-items:center;justify-content:center;gap:clamp(12px,3svh,22px);text-align:center;
+    pointer-events:none;isolation:isolate;
+  }
+  /* dark pool behind the name so it reads over the scattered parts */
+  #title::before{
+    content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(ellipse 62% 48% at 50% 50%,
+      rgba(6,6,5,.82) 0%, rgba(6,6,5,.62) 45%, rgba(6,6,5,0) 78%);
   }
   #title .kicker{
     font-family:var(--mono);font-size:10px;letter-spacing:.5em;text-indent:.5em;
-    text-transform:uppercase;color:var(--muted);
+    text-transform:uppercase;color:#a9a397;
+    text-shadow:0 0 12px rgba(6,6,5,.95);
   }
   #title h1{
-    font-size:clamp(44px,9.5vw,120px);font-weight:300;line-height:1.02;
+    /* bounded by height too, so short wide windows don't overflow */
+    font-size:clamp(36px,min(9.5vw,13svh),120px);font-weight:300;line-height:1.02;
     letter-spacing:.12em;text-indent:.12em;color:var(--bone);
+    text-shadow:0 0 30px rgba(6,6,5,.9),0 0 8px rgba(6,6,5,.7);
   }
   #title .sub{
-    font-size:clamp(15px,2vw,19px);font-style:italic;color:var(--muted);letter-spacing:.04em;
+    font-size:clamp(15px,2vw,19px);font-style:italic;color:#b3ada0;letter-spacing:.04em;
+    text-shadow:0 0 14px rgba(6,6,5,.95);
   }
 
   /* phase caption */
   #caption{
     position:absolute;left:0;right:0;bottom:clamp(72px,11vh,110px);
     display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;
-    padding:0 24px;pointer-events:none;
+    padding:0 24px;pointer-events:none;isolation:isolate;
     opacity:0;transform:translateY(10px);
     transition:opacity .55s ease, transform .55s ease;
   }
   #caption.show{opacity:1;transform:none}
-  #caption .cn{font-family:var(--mono);font-size:10px;letter-spacing:.4em;text-indent:.4em;color:var(--brass)}
-  #caption .ct{font-size:clamp(19px,2.6vw,27px);font-weight:300;font-style:italic;color:var(--bone)}
+  /* captions wait until the title has faded, so the two never overlap */
+  body:not(.scrolled) #caption{opacity:0}
+  #caption::before{
+    content:"";position:absolute;left:50%;top:50%;z-index:-1;
+    width:min(760px,110%);height:240%;transform:translate(-50%,-50%);
+    background:radial-gradient(ellipse 50% 50% at 50% 50%, rgba(6,6,5,.78) 0%, rgba(6,6,5,0) 100%);
+  }
+  #caption .cn{font-family:var(--mono);font-size:10px;letter-spacing:.4em;text-indent:.4em;color:var(--brass);text-shadow:0 0 10px rgba(6,6,5,.95)}
+  #caption .ct{font-size:clamp(19px,2.6vw,27px);font-weight:300;font-style:italic;color:var(--bone);text-shadow:0 0 18px rgba(6,6,5,.95),0 0 6px rgba(6,6,5,.8)}
 
   /* scroll cue */
   #cue{
@@ -382,6 +399,7 @@
 
     progress.style.transform = "scaleX(" + current + ")";
     title.style.opacity = Math.max(0, 1 - current * 9);
+    document.body.classList.toggle("scrolled", current > 0.09);
 
     var i = 0;
     for (var k = 0; k < MARKS.length; k++) if (current >= MARKS[k]) i = k + 1;
