@@ -31,7 +31,22 @@ python3 -m http.server 8000
 
 **Do not re-encode the videos** without preserving the all-intra keyframe
 settings (`-g 1 -keyint_min 1 -sc_threshold 0`) — a keyframe on every frame is
-what makes scrubbing frame-accurate.
+what makes scrubbing frame-accurate. The mobile file is made from the desktop
+master with a chroma offset that keeps the gold dial numerals from washing out:
+
+```bash
+ffmpeg -i watch-desktop.mp4 -an -vf "scale=1280:720:flags=lanczos" \
+  -c:v libx264 -preset slow -crf 29 \
+  -x264-params "chroma-qp-offset=-6:aq-mode=3:aq-strength=0.9:deblock=-1,-1" \
+  -g 1 -keyint_min 1 -sc_threshold 0 -pix_fmt yuv420p -profile:v high \
+  -movflags +faststart watch-mobile.mp4
+```
+
+**Sharing and search.** `og.jpg` is the 1200×630 link-preview card. The
+favicon set (`favicon.ico`, `favicon-32.png`, `icon-192.png`,
+`apple-touch-icon.png`) is the "HA" monogram. `robots.txt` and `sitemap.xml`
+point search engines at `https://www.almaaini.com/`, and `404.html` is the
+not-found page.
 
 ## Archive
 
