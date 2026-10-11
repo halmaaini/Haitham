@@ -306,7 +306,18 @@
 
   /* 3. Pick the encode BEFORE setting src — phones must never fetch the desktop file */
   var small = innerWidth < 820 || matchMedia("(pointer: coarse)").matches;
-  video.src = small ? "watch-mobile.mp4" : "watch-desktop.mp4";
+  /* upright phones only ever show the centre of the frame, so they get a
+     portrait crop cut from the 1080p master instead of a scaled-down 16:9 */
+  var portrait = matchMedia("(orientation: portrait)");
+  function pickSrc(){
+    if (!small) return "watch-desktop.mp4";
+    return portrait.matches ? "watch-portrait.mp4" : "watch-mobile.mp4";
+  }
+  video.src = pickSrc();
+  /* on rotation swap encodes; the scrub loop re-seeks to the scroll position */
+  if (small && portrait.addEventListener) portrait.addEventListener("change", function(){
+    video.src = pickSrc();
+  });
 
   /* Source is 24fps — throttling any finer than one frame just burns decoder seeks */
   var FRAME = 1 / 24;
