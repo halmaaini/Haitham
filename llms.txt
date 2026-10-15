@@ -1,0 +1,25 @@
+# Haitham Al Maaini
+
+> Haitham Al Maaini (هيثم المعيني) works on systems thinking and operational design. He takes messy operations, broken or inefficient workflows, and ideas that need to become functioning systems, and redesigns them using people, process, automation and AI.
+
+The website almaaini.com is a single page. Its hero is a scroll-driven video of scattered watch parts assembling into a finished pocket watch, a metaphor for how he works: gather the scattered pieces of an operation, understand how they really fit together, then assemble a solution that runs reliably.
+
+## How he works
+
+- **Diagnose:** understand how the operation really runs. Find bottlenecks, gaps, wasted effort and wrong assumptions.
+- **Design:** redesign the workflow: roles, rules, approvals, information flow and system logic.
+- **Build:** turn the design into something usable through people, process changes, automation, software or AI.
+- **Stabilize:** test it in the real environment, fix problems, add controls, and make sure it runs reliably without depending on him.
+
+He starts by asking whether a problem is the right problem. The stated issue is rarely the real constraint; the structure behind it usually is.
+
+Example from the site: a queue at an admissions desk isn't solved by typing faster. Enter only what's needed while the student is there and finish the rest when the desk is quiet. Same people, no queue.
+
+## Good fit
+
+A messy operation, a workflow that fights the people using it, or an idea that needs to become a working system.
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/in/haitham-almaaini/): the preferred way to get in touch
+- [Website](https://www.almaaini.com/)

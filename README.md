@@ -54,7 +54,14 @@ ffmpeg -i watch-desktop.mp4 -an -vf "crop=810:1080:555:0" \
 favicon set (`favicon.ico`, `favicon-32.png`, `icon-192.png`,
 `apple-touch-icon.png`) is the "HA" monogram. `robots.txt` and `sitemap.xml`
 point search engines at `https://www.almaaini.com/`, and `404.html` is the
-not-found page.
+not-found page. The page head carries schema.org JSON-LD (`Person`, `WebSite`,
+`ProfilePage`) linking the site to the LinkedIn profile, and `llms.txt` is a
+plain-language summary for AI assistants.
+
+**Security headers** are set in `vercel.json`. The Content-Security-Policy only
+applies on `www.almaaini.com`, so Vercel's preview toolbar keeps working on
+preview deployments. If you add a third-party script, font or embed, add its
+origin to that policy or it will be blocked.
 
 ## Archive
 
